@@ -25,10 +25,18 @@ function populateTableHeader(labels, theadTr, theadElement, tableElement) {
 function populateTableBody(data, tbodyElement) {
   for (let i = 0; i < data.weatherData.length; i++) {
     let tbodyTr = document.createElement('tr');
-    for (let value of Object.values(data.weatherData[i])) {
-      let tbodyTd = document.createElement('td');
-      tbodyTd.innerHTML = value;
-      tbodyTr.appendChild(tbodyTd);
+    for (const [key, value] of Object.entries(data.weatherData[i])) {
+      if (key === 'summary' && value !== 'N/A') {
+          let tbodyTd = document.createElement('td');
+          let imgElement = document.createElement('img');
+          imgElement.setAttribute('src', `../icons/${value}.svg`);
+          tbodyTd.appendChild(imgElement);
+          tbodyTr.appendChild(tbodyTd);
+      } else {
+        let tbodyTd = document.createElement('td');
+        tbodyTd.innerHTML = value;
+        tbodyTr.appendChild(tbodyTd);
+      }
     }
     tbodyElement.appendChild(tbodyTr);
   }
