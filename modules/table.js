@@ -26,12 +26,14 @@ function populateTableBody(data, tbodyElement) {
   for (let i = 0; i < data.weatherData.length; i++) {
     let tbodyTr = document.createElement('tr');
     for (const [key, value] of Object.entries(data.weatherData[i])) {
-      if (key === 'summary' && value !== 'N/A') {
-          let tbodyTd = document.createElement('td');
+      if (key === 'summary') {
+        let tbodyTd = document.createElement('td');
+        if (value !== 'N/A') {
           let imgElement = document.createElement('img');
           imgElement.setAttribute('src', `../icons/${value}.svg`);
           tbodyTd.appendChild(imgElement);
-          tbodyTr.appendChild(tbodyTd);
+        }
+        tbodyTr.appendChild(tbodyTd);
       } else {
         let tbodyTd = document.createElement('td');
         tbodyTd.innerHTML = value;
